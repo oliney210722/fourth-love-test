@@ -1,0 +1,16 @@
+{
+  "name": "第四爱恋爱性格测试",
+  "short_name": "四爱测试",
+  "description": "探索你的第四爱关系原型，16种动物性格等你发现",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#faf8fc",
+  "theme_color": "#ff7ba9",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
