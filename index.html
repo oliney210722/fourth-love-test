@@ -1306,8 +1306,6 @@ card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDe
 });
 }
 function showResult(){
-  trackEvent('Test', 'Complete', resultType);
-
 showPage('resultPage');
 $('resultPage').style.display='block';
 $('resultPage').classList.add('active');
@@ -1316,6 +1314,13 @@ const {pct,balanced,candidates}=compute();
 resultType=candidates[0]||'FDJC';
 const data=types[resultType]||types.FDJC;
 const secType=candidates[1]?types[candidates[1]]:null;
+
+// 修复：在resultType计算完成后再发送事件统计
+const testDuration=testStartTime?Math.round((Date.now()-testStartTime)/1000):0;
+trackEvent('Test', 'Complete', resultType);
+trackEvent('Test', 'Complete_'+(testMode==='quick'?'Quick':'Full'), resultType);
+trackEvent('Test', 'Complete_'+(gender==='male'?'Male':'Female'), resultType);
+trackEvent('Test', 'Duration', testMode+'_'+gender, testDuration);
 document.documentElement.style.setProperty('--type-color',data.color);
 saveHistory({
 type:resultType,
@@ -1372,6 +1377,7 @@ genderBlocks.forEach(id=>{const el=$(id);if(el)el.classList.remove('gender-switc
 }
 function toggleGenderView(){
 viewGender=viewGender==='male'?'female':'male';
+trackEvent('Test', 'ToggleGender', viewGender+'_from_'+resultType);
 updateGenderView();
 }
 function switchModalGender(g){
