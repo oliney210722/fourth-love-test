@@ -361,13 +361,13 @@ window.trackEvent = function(eventName, params) {
 <button type="button" class="back-to-home" onclick="showPage('homePage')">← 返回首页</button>
 <div class="header"><span class="icon">📋</span><h1 style="font-size:20px">选择测试模式</h1></div>
 <div class="mode-cards">
-<div class="mode-card" onclick="startTest('full')">
+<div class="mode-card" onclick="trackEvent('Test', 'StartTest', 'Full');startTest('full')">
 <div class="mode-icon">🎯</div>
 <div class="mode-title">完整版测试</div>
 <div class="mode-meta">⏱️ 约5-8分钟 · 40道题</div>
 <div class="mode-desc">包含单选题、排序题、迫选题、量表题四种题型，覆盖四个维度，结果更精准，稀有类型区分度更高。</div>
 </div>
-<div class="mode-card quick" onclick="startTest('quick')">
+<div class="mode-card quick" onclick="trackEvent('Test', 'StartTest', 'Quick');startTest('quick')">
 <div class="mode-icon">⚡</div>
 <div class="mode-title">快速版测试</div>
 <div class="mode-meta">⏱️ 约2-3分钟 · 16道题</div>
@@ -955,7 +955,9 @@ html+='<div style="margin-top:12px"><button type="button" class="btn btn-card" s
 }
 container.innerHTML=html;
 }
-function openHistoryModal(){renderHistoryModal();$('historyModal').classList.add('active')}
+function openHistoryModal(){
+  trackEvent('Nav', 'ViewHistory');
+renderHistoryModal();$('historyModal').classList.add('active')}
 function closeHistoryModal(){$('historyModal').classList.remove('active')}
 function viewHistoryResult(index){
 const history=loadHistory();
@@ -1047,7 +1049,9 @@ function goToMode(){showPage('modePage');window.scrollTo({top:0,behavior:'smooth
 function backToHome(){showPage('homePage');window.scrollTo({top:0,behavior:'smooth'})}
 function selectMode(mode){testMode=mode;showPage('genderPage');window.scrollTo({top:0,behavior:'smooth'})}
 function startTest(mode){selectMode(mode)}
-function openAuthorModal(){$('authorModal').classList.add('active')}
+function openAuthorModal(){
+  trackEvent('Nav', 'ViewAuthor');
+$('authorModal').classList.add('active')}
 function closeAuthorModal(){$('authorModal').classList.remove('active')}
 function init(){
 window.onerror=function(msg,url,line,col,error){
@@ -1093,7 +1097,9 @@ if(container){container.innerHTML='<div style="text-align:center;padding:40px 20
 }
 function resumeTest(){const s=load();if(!s)return;cur=s.cur;scores=s.scores;answers=s.answers;gender=s.gender;testStartTime=s.testStartTime||Date.now();testMode=s.testMode||'full';showPage('testPage');$('resumeBanner').classList.add('hidden');render()}
 function discardProgress(){clearStore();testMode='full';$('resumeBanner').classList.add('hidden');$('genderTitle').classList.remove('hidden');$('genderButtons').classList.remove('hidden');showPage('modePage');window.scrollTo({top:0,behavior:'smooth'})}
-function selectGender(g){gender=g;testStartTime=Date.now();const pool=testMode==='quick'?quickQuestions:allQuestions;questions=buildQuestionOrder(pool);showPage('testPage');cur=0;scores={F:0,T:0,D:0,I:0,J:0,V:0,C:0,A:0};answers=[];render()}
+function selectGender(g){
+  trackEvent('Test', 'SelectGender', g);
+gender=g;testStartTime=Date.now();const pool=testMode==='quick'?quickQuestions:allQuestions;questions=buildQuestionOrder(pool);showPage('testPage');cur=0;scores={F:0,T:0,D:0,I:0,J:0,V:0,C:0,A:0};answers=[];render()}
 const transitionMsgs=[
 {icon:'🌟',title:'已经完成一半啦！',desc:'很棒！前面的题目已经了解了你的一些倾向，接下来会继续深入探索你的关系模式。休息一下，按照真实感受继续作答吧～'}
 ];
@@ -1295,6 +1301,8 @@ card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDe
 });
 }
 function showResult(){
+  trackEvent('Test', 'Complete', resultType);
+
 showPage('resultPage');
 $('resultPage').style.display='block';
 $('resultPage').classList.add('active');
@@ -1406,7 +1414,9 @@ document.querySelectorAll('.animals-filter .filter-btn').forEach(b=>b.classList.
 btn.classList.add('active');
 renderAnimalsGrid(f);
 }
-function openAnimalsModal(){$('animalsModal').classList.add('active')}
+function openAnimalsModal(){
+  trackEvent('Nav', 'ViewAnimals');
+$('animalsModal').classList.add('active')}
 function closeAnimalsModal(){$('animalsModal').classList.remove('active')}
 function renderDimensionContent(){
 $('dimensionContent').innerHTML=DIMENSIONS.map(d=>`
@@ -1418,7 +1428,9 @@ $('dimensionContent').innerHTML=DIMENSIONS.map(d=>`
 </div>
 </div>`).join('');
 }
-function openDimensionModal(){$('dimensionModal').classList.add('active')}
+function openDimensionModal(){
+  trackEvent('Nav', 'ViewDimension');
+$('dimensionModal').classList.add('active')}
 function closeDimensionModal(){$('dimensionModal').classList.remove('active')}
 function showLetter(letter){
 const info=LETTER_INFO[letter];if(!info)return;
@@ -1481,6 +1493,8 @@ container.appendChild(btn);
 });
 }
 function generateCard(customColor){
+  trackEvent('Card', 'Generate', resultType);
+
 const testCanvas=document.createElement('canvas');
 if(!testCanvas.getContext||!testCanvas.getContext('2d')){
 showToast('抱歉，您的浏览器不支持生成图片功能，请使用现代浏览器打开。');
@@ -1606,6 +1620,8 @@ $('cardModal').classList.add('active');
 qrImg.src=QR_CODE_BASE64;
 }
 function downloadCard(){
+  trackEvent('Card', 'Download', resultType);
+
 if(!cardUrl)return;
 try{
 // 将base64转换为Blob URL（更稳定的下载方式）
@@ -1657,9 +1673,13 @@ showToast('保存失败，请长按上方图片选择"保存图片"');
 }
 }
 function closeCardModal(){$('cardModal').classList.remove('active');currentCardColor=null;}
-function openTipModal(){$('tipModal').classList.add('active');}
+function openTipModal(){
+  trackEvent('Tip', 'ClickTip');
+$('tipModal').classList.add('active');}
 function closeTipModal(){$('tipModal').classList.remove('active');}
 function restartTest(){
+  trackEvent('Test', 'Restart');
+
 clearStore();
 cur=0;scores={F:0,T:0,D:0,I:0,J:0,V:0,C:0,A:0};answers=[];
 gender=null;resultType='FDJC';cardUrl=null;testMode='full';viewGender=null;
@@ -1922,6 +1942,21 @@ function updateProgressWithAnimation(percent) {
   if (percentEl) animateNumber(percentEl, percent, 400);
 }
 
+
+/* Baidu Analytics Event Tracking */
+function trackEvent(category, action, label, value) {
+  try {
+    if (typeof _hmt !== 'undefined' && _hmt.push) {
+      var event = ['_trackEvent', category, action];
+      if (label !== undefined && label !== null) event.push(label);
+      if (value !== undefined && value !== null) event.push(value);
+      _hmt.push(event);
+      console.log('[Track]', category, action, label || '', value || '');
+    }
+  } catch (e) {
+    console.error('trackEvent error:', e);
+  }
+}
 </script>
 </body>
 </html>
