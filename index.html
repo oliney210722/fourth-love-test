@@ -1223,7 +1223,7 @@ container.appendChild(btn);
 function generateCard(customColor){
 const testCanvas=document.createElement('canvas');
 if(!testCanvas.getContext||!testCanvas.getContext('2d')){
-alert('抱歉，您的浏览器不支持生成图片功能，请使用现代浏览器打开。');
+showToast('抱歉，您的浏览器不支持生成图片功能，请使用现代浏览器打开。');
 return;
 }
 const d=types[resultType];
@@ -1393,7 +1393,7 @@ setTimeout(()=>{if(hint.parentNode)hint.parentNode.removeChild(hint);},3000);
 },500);
 }catch(e){
 console.error('下载失败:',e);
-alert('保存失败，请长按上方图片选择"保存图片"');
+showToast('保存失败，请长按上方图片选择"保存图片"');
 }
 }
 function closeCardModal(){$('cardModal').classList.remove('active');currentCardColor=null;}
@@ -1572,7 +1572,7 @@ function saveQRCode(type){
     var img=null;
     if(type==='wechat') img=imgs[0];
     else if(type==='alipay') img=imgs[1];
-    if(!img){alert('二维码图片加载失败，请长按图片保存');return;}
+    if(!img){showToast('二维码图片加载失败，请长按图片保存');return;}
     var dataURL=img.src;
     var arr=dataURL.split(',');
     var mime=arr[0].match(/:(.*?);/)[1];
@@ -1590,8 +1590,33 @@ function saveQRCode(type){
     document.body.removeChild(a);
     setTimeout(function(){URL.revokeObjectURL(url);},100);
   }catch(e){
-    alert('保存失败，请长按二维码图片选择保存图片');
+    showToast('保存失败，请长按二维码图片选择保存图片');
   }
-}</script>
+}
+// XSS protection: sanitize HTML content
+function safeHtml(str) {
+  if (str === null || str === undefined) return '';
+  if (typeof str !== 'string') str = String(str);
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// User-friendly toast notification
+function showToast(msg) {
+  try {
+    var toast = document.getElementById('encouragementToast');
+    if (toast) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, 3000);
+    } else {
+      console.log('Toast:', msg);
+    }
+  } catch (e) {
+    console.error('showToast error:', e);
+  }
+}
+</script>
 </body>
 </html>
