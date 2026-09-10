@@ -543,26 +543,26 @@ const rankQuestions=[
 const forceQuestions=[
 {q:'以下哪种更接近你？',a:{text:'做决定时我通常先有自己的想法',letter:'D'},b:{text:'做决定时我通常先问问对方的想法',letter:'I'}},
 {q:'以下哪种更接近你？',a:{text:'吵架后我习惯先开口说话',letter:'F'},b:{text:'吵架后我需要先自己消化一下',letter:'T'}},
-{q:'以下哪种更接近你？',a:{text:'我不太在意别人觉得我的行为符不符合性别期待',letter:'D'},b:{text:'我有时会担心自己的行为不符合别人对性别的期待',letter:'I'}},
+{q:'以下哪种更接近你？',a:{text:'重要的纪念日我会提前很久就开始准备',letter:'J'},b:{text:'纪念日到了再想怎么过也来得及',letter:'V'}},
 {q:'以下哪种更接近你？',a:{text:'我喜欢和对方分享每天的小事',letter:'C'},b:{text:'我喜欢有自己的时间做自己的事',letter:'A'}},
 {q:'以下哪种更接近你？',a:{text:'约会时我更喜欢主动安排行程',letter:'D'},b:{text:'约会时我更喜欢让对方决定做什么',letter:'I'}},
 {q:'以下哪种更接近你？',a:{text:'我表达爱意时更喜欢说出来',letter:'F'},b:{text:'我表达爱意时更喜欢做出来',letter:'T'}},
-{q:'以下哪种更接近你？',a:{text:'如果别人对我们的关系模式好奇，我愿意解释',letter:'F'},b:{text:'我不太想和别人讨论我们关系的具体模式',letter:'T'}},
+{q:'以下哪种更接近你？',a:{text:'我喜欢有规律的相处模式，比如固定的约会时间',letter:'J'},b:{text:'我喜欢随性一点，每次见面都可以不一样',letter:'V'}},
 {q:'以下哪种更接近你？',a:{text:'对方长时间独处时我会想知道TA在做什么',letter:'C'},b:{text:'对方需要独处时我会给TA足够的空间',letter:'A'}},
 {q:'以下哪种更接近你？',a:{text:'伴侣出差或旅行时，我会每天都想联系TA',letter:'C'},b:{text:'伴侣出差或旅行时，我正好享受自己的时间',letter:'A'}},
-{q:'以下哪种更接近你？',a:{text:'做重要决定时我通常会先提出自己的方案',letter:'D'},b:{text:'做重要决定时我更看重对方的想法和感受',letter:'I'}},
+{q:'以下哪种更接近你？',a:{text:'在两人的事情上，我通常是那个发起和推动的人',letter:'D'},b:{text:'在两人的事情上，我通常是那个配合和响应的人',letter:'I'}},
 {q:'以下哪种更接近你？',a:{text:'对方做了让我感动的事，我会直接说出来让TA知道',letter:'F'},b:{text:'对方做了让我感动的事，我会记在心里用行动回报',letter:'T'}},
 {q:'以下哪种更接近你？',a:{text:'我喜欢提前定好约会的时间和地点',letter:'J'},b:{text:'我更倾向于临时决定，随性一点',letter:'V'}}
 ];
 const scaleQuestions=[
 {q:'我喜欢直接告诉对方我的感受和想法',l:'完全符合',r:'完全不符合',la:'F',ra:'T',reverse:false},
 {q:'在团队合作或集体活动中，我更倾向于主动牵头组织',l:'完全符合',r:'完全不符合',la:'D',ra:'I',reverse:false},
-{q:'我花了比较长时间才弄清楚自己在关系中真正想要什么',l:'完全符合',r:'完全不符合',la:'J',ra:'V',reverse:false},
+{q:'我喜欢提前为两人的未来做规划',l:'完全符合',r:'完全不符合',la:'J',ra:'V',reverse:false},
 {q:'在关系中我更喜欢主动掌控节奏和方向',l:'完全符合',r:'完全不符合',la:'D',ra:'I',reverse:false},
 {q:'我喜欢和伴侣一起制定未来的计划并努力落实',l:'完全符合',r:'完全不符合',la:'J',ra:'V',reverse:false},
 {q:'即使在一起很久了，我也希望和伴侣保持高频的日常交流',l:'完全符合',r:'完全不符合',la:'C',ra:'A',reverse:false},
-{q:'我表达爱意时更喜欢做出来',l:'完全不符合',r:'完全符合',la:'F',ra:'T',reverse:true},
-{q:'做决定时我通常先问问对方的想法',l:'完全不符合',r:'完全符合',la:'D',ra:'I',reverse:true},
+{q:'对方难过时，我更倾向于默默陪伴而不是说很多安慰的话',l:'完全不符合',r:'完全符合',la:'F',ra:'T',reverse:true},
+{q:'在两人有分歧时，我通常会坚持自己的看法直到被说服',l:'完全符合',r:'完全不符合',la:'D',ra:'I',reverse:false},
 {q:'临时起意让我觉得更有惊喜',l:'完全不符合',r:'完全符合',la:'J',ra:'V',reverse:true},
 {q:'我喜欢有自己的时间做自己的事',l:'完全不符合',r:'完全符合',la:'C',ra:'A',reverse:true},
 {q:'我很少用言语来向伴侣表达喜欢',l:'完全不符合',r:'完全符合',la:'F',ra:'T',reverse:true},
@@ -572,7 +572,7 @@ const allQuestions=[...singleQuestions.map(q=>({...q,type:'single'})),...rankQue
 const quickQuestions=[
 {type:'force',q:'以下哪种更接近你？',a:{text:'做决定时我通常先有自己的想法',letter:'D'},b:{text:'做决定时我通常先问问对方的想法',letter:'I'}},
 {type:'force',q:'以下哪种更接近你？',a:{text:'吵架后我习惯先开口说话',letter:'F'},b:{text:'吵架后我需要先自己消化一下',letter:'T'}},
-{type:'force',q:'以下哪种更接近你？',a:{text:'我不太在意别人觉得我的行为符不符合性别期待',letter:'D'},b:{text:'我有时会担心自己的行为不符合别人对性别的期待',letter:'I'}},
+{type:'force',q:'以下哪种更接近你？',a:{text:'重要的纪念日我会提前很久就开始准备',letter:'J'},b:{text:'纪念日到了再想怎么过也来得及',letter:'V'}},
 {type:'force',q:'以下哪种更接近你？',a:{text:'我喜欢和对方分享每天的小事',letter:'C'},b:{text:'我喜欢有自己的时间做自己的事',letter:'A'}},
 {type:'force',q:'以下哪种更接近你？',a:{text:'我需要每天和伴侣保持联系才会安心',letter:'C'},b:{text:'我觉得几天不联系也很正常',letter:'A'}},
 {type:'force',q:'以下哪种更接近你？',a:{text:'关系中的重要决定我希望自己有最终话语权',letter:'D'},b:{text:'关系中的重要决定我更愿意听对方的意见',letter:'I'}},
@@ -585,7 +585,7 @@ const quickQuestions=[
 {type:'scale',q:'我喜欢直接告诉对方我的感受和想法',l:'完全符合',r:'完全不符合',la:'F',ra:'T',reverse:false},
 {type:'scale',q:'我花了比较长时间才弄清楚自己在关系中真正想要什么',l:'完全符合',r:'完全不符合',la:'J',ra:'V',reverse:false},
 {type:'scale',q:'我很少用言语来向伴侣表达喜欢',l:'完全不符合',r:'完全符合',la:'F',ra:'T',reverse:true},
-{type:'scale',q:'对方连续几天不联系我，我也不会觉得有什么问题',l:'完全不符合',r:'完全符合',la:'C',ra:'A',reverse:true}
+{type:'scale',q:'对方需要独处空间时，我能坦然接受',l:'完全不符合',r:'完全符合',la:'C',ra:'A',reverse:true}
 ];
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
 let questions=[];const types={
