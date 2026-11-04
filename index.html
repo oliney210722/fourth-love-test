@@ -331,7 +331,7 @@
 <div id="homePage" class="home-section">
 <div class="header"><span class="icon">💗</span><h1>第四爱恋爱性格测试</h1><p class="subtitle">探索你的关系原型</p><p class="hero-subtitle">发现你在四爱关系中的独特性格，找到最适合你的伴侣类型</p></div>
 <div class="home-buttons">
-<button type="button" class="home-btn primary" onclick="showPage('modePage')"><span class="btn-icon">🚀</span><span class="btn-text"><div class="btn-title">开始测试</div><div class="btn-desc">完整版40题 / 快速版16题</div></span><span class="btn-arrow">→</span></button>
+<button type="button" class="home-btn primary" onclick="openMigrateModal()"><span class="btn-icon">🚀</span><span class="btn-text"><div class="btn-title">开始测试</div><div class="btn-desc">完整版40题 / 快速版16题</div></span><span class="btn-arrow">→</span></button>
 <button type="button" class="home-btn" onclick="openAnimalsModal()"><span class="btn-icon">🐾</span><span class="btn-text"><div class="btn-title">查看所有动物原型</div><div class="btn-desc">16种性格解读，可切换性别视角</div></span><span class="btn-arrow">→</span></button>
 <button type="button" class="home-btn" onclick="openDimensionModal()"><span class="btn-icon">📊</span><span class="btn-text"><div class="btn-title">维度字母含义</div><div class="btn-desc">了解F/T、D/I、J/V、C/A四个维度</div></span><span class="btn-arrow">→</span></button>
 <button type="button" class="home-btn" onclick="openAuthorModal()"><span class="btn-icon">✍️</span><span class="btn-text"><div class="btn-title">作者的话</div><div class="btn-desc">来自善良的马桶的一些碎碎念</div></span><span class="btn-arrow">→</span></button>
@@ -419,7 +419,23 @@
 <button type="button" class="btn btn-card" onclick="generateCard()">🖼️ 生成结果卡片</button>
 </div>
 <p class="disclaimer">⚠️ <strong>免责声明：</strong>本测试基于第四爱社区文化设计，结果仅供娱乐和自我探索参考，不构成任何心理诊断或关系建议。每个人都是独特的，测试结果只是一种可能性的描述，不应被当作标签或评判标准。</p>
-</div></div><div class="modal-overlay" id="authorModal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthorModal()">
+</div></div><div class="modal-overlay" id="migrateModal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeMigrateModal()">
+<div class="modal" style="max-width:440px">
+<button type="button" class="modal-close" onclick="closeMigrateModal()" aria-label="关闭">✕</button>
+<span class="modal-icon">📢</span>
+<h3 class="modal-title">网站迁移公告</h3>
+<p class="modal-subtitle">我们搬家啦～</p>
+<div style="text-align:left;font-size:13px;color:var(--text2);line-height:1.9;margin:14px 0">
+<p>本网站已更换新地址，旧网址的测试功能已停用。</p>
+<p>请前往新网站继续测试，其余功能（动物原型、历史记录等）仍可正常使用。</p>
+</div>
+<div style="background:rgba(255,123,169,.08);border:1.5px solid rgba(255,123,169,.3);border-radius:12px;padding:12px;margin:12px 0;word-break:break-all">
+<div style="font-size:11px;color:var(--text2);margin-bottom:4px">新网址：</div>
+<a href="https://4love-test.pages.dev/" target="_blank" rel="noopener" style="color:var(--pink3);font-size:14px;font-weight:600;text-decoration:none">https://4love-test.pages.dev/</a>
+</div>
+<button type="button" class="btn btn-primary" style="width:100%;margin-top:8px" onclick="window.open('https://4love-test.pages.dev/','_blank','noopener')">立即前往新网站 →</button>
+</div>
+</div><div class="modal-overlay" id="authorModal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthorModal()">
 <div class="modal" style="max-width:520px"><button type="button" class="modal-close" onclick="closeAuthorModal()" aria-label="关闭">✕</button>
 <span class="modal-icon">✍️</span><h3 class="modal-title">作者的话</h3><p class="modal-subtitle">来自善良的马桶的一些碎碎念</p>
 <div class="author-modal-content">
@@ -1037,7 +1053,9 @@ btn.textContent='📕 收起详细解读';
 function goToMode(){showPage('modePage');window.scrollTo({top:0,behavior:'smooth'})}
 function backToHome(){showPage('homePage');window.scrollTo({top:0,behavior:'smooth'})}
 function selectMode(mode){testMode=mode;showPage('genderPage');window.scrollTo({top:0,behavior:'smooth'})}
-function startTest(mode){selectMode(mode)}
+function startTest(mode){openMigrateModal()}
+function openMigrateModal(){$('migrateModal').classList.add('active')}
+function closeMigrateModal(){$('migrateModal').classList.remove('active')}
 function openAuthorModal(){
   
 $('authorModal').classList.add('active')}
@@ -1066,6 +1084,7 @@ if(sel)for(const [code,d] of Object.entries(types)){const opt=document.createEle
 renderAnimalsGrid();
 renderDimensionContent();
 showTypeDirect(urlParams.type,urlParams.gender);
+openMigrateModal();
 return;
 }
 const saved=load();
@@ -1079,6 +1098,7 @@ const sel=$('matchSelect');
 if(sel)for(const [code,d] of Object.entries(types)){const opt=document.createElement('option');opt.value=code;opt.textContent=d.icon+' '+d.badge+' - '+d.title;sel.appendChild(opt)}
 renderAnimalsGrid();
 renderDimensionContent();
+openMigrateModal();
 }catch(e){
 console.error('初始化失败:',e);
 const container=document.querySelector('.container');
